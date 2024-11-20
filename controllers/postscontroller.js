@@ -36,7 +36,6 @@ function modify(req, res) {
 }
 
 function destroy(req, res) {
-    res.send(`Eliminazione della pizza ${req.params.id}`)
     const id = parseInt(req.params.id);
     let post = posts.find(post => post.id === id);
     if (!post) {
