@@ -11,7 +11,6 @@ function index(req, res) {
 };
 
 function show(req, res) {
-    res.send(`Dettagli del post ${req.params.id}`);
     const id = parseInt(req.params.id);
     let post = posts.find(post => post.id === id);
     if (!post) {
