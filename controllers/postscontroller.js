@@ -11,7 +11,17 @@ function index(req, res) {
 };
 
 function show(req, res) {
-    res.send(`Dettagli del post ${req.params.id}`)
+    res.send(`Dettagli del post ${req.params.id}`);
+    const id = parseInt(req.params.id);
+    let post = posts.find(post => post.id === id);
+    if (!post) {
+        res.status(404);
+        post = {
+            error: "Not Found",
+            message: "Pizza non trovata"
+        }
+    }
+    res.json(post);
 };
 
 function store(req, res) {
