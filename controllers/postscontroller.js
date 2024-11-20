@@ -41,10 +41,11 @@ function destroy(req, res) {
     let post = posts.find(post => post.id === id);
     if (!post) {
         res.status(404);
-        post = {
+        return res.json({
             error: "Not Found",
             message: "Pizza non trovata"
-        }
+        });
+
     }
     posts.splice(posts.indexOf(post), 1);
     res.sendStatus(204)
