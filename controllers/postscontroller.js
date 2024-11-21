@@ -57,9 +57,9 @@ function update(req, res) {
             message: "Dati incompleti"
         });
     }
-    post.title = title ?? post.title;
+    post.title = title;
+    post.content = content;
     post.slug = slug ?? post.slug;
-    post.content = content ?? post.content;
     post.image = image ?? post.image;
     post.tags = tags ?? post.tags;
 
