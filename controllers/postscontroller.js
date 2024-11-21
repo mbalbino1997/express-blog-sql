@@ -50,6 +50,13 @@ function update(req, res) {
         });
     };
     const { title, slug, content, image, tags } = req.body;
+    if (!title || !content) {
+        res.status(400);
+        return res.json({
+            error: "Data missing",
+            message: "Dati incompleti"
+        });
+    }
     post.title = title ?? post.title;
     post.slug = slug ?? post.slug;
     post.content = content ?? post.content;
