@@ -1,5 +1,5 @@
 const posts = require("../data/posts.js")
-
+let lastIndex = posts.at(-1).id;
 function index(req, res) {
     let filteredPosts = posts;
     if (req.query.tag) {
@@ -24,7 +24,19 @@ function show(req, res) {
 };
 
 function store(req, res) {
-    res.send("Creazione nuovo post")
+    lastIndex++
+    const { title, slug, content, image, tags } = req.body;
+    const newPost = {
+        id: lastIndex,
+        title,
+        slug,
+        content,
+        image,
+        tags
+    }
+    posts.push(newPost);
+    res.status(201);
+    res.json(newPost);
 };
 
 function update(req, res) {
