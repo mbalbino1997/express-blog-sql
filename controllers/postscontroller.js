@@ -50,10 +50,10 @@ function update(req, res) {
         });
     };
     const { title, slug, content, image, tags } = req.body;
-    if (!title || !content) {
+    if (!title || !content || !isNaN(title) || !isNaN(content)) {
         res.status(400);
         return res.json({
-            error: "Data missing",
+            error: "invalid or missing data",
             message: "Dati incompleti"
         });
     }
