@@ -31,8 +31,6 @@ function store(req, res) {
 };
 
 function update(req, res) {
-    validator(req, res);
-
     const { title, slug, content, image, tags } = req.body;
     req.post.title = title;
     req.post.content = content;
@@ -44,7 +42,6 @@ function update(req, res) {
 };
 
 function modify(req, res) {
-    validator(req, res);
     const { title, slug, content, image, tags } = req.body;
     req.post.title = title ?? post.title;
     req.post.slug = slug ?? post.slug;
@@ -63,13 +60,3 @@ function destroy(req, res) {
 
 module.exports = { index, show, store, update, modify, destroy };
 
-function validator(req, res) {
-    const { title, slug, content, image, tags } = req.body;
-    if (!title || !content || !isNaN(title) || !isNaN(content)) {
-        res.status(400);
-        return res.json({
-            error: "invalid or missing data",
-            message: "Dati incompleti"
-        });
-    }
-}
