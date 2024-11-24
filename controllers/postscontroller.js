@@ -11,16 +11,7 @@ function index(req, res) {
 };
 
 function show(req, res) {
-    const id = parseInt(req.params.id);
-    let post = posts.find(post => post.id === id);
-    if (!post) {
-        res.status(404);
-        post = {
-            error: "Not Found",
-            message: "Pizza non trovata"
-        }
-    }
-    res.json(post);
+    res.json(req.post);
 };
 
 function store(req, res) {
@@ -40,59 +31,33 @@ function store(req, res) {
 };
 
 function update(req, res) {
-    const id = parseInt(req.params.id);
-    const post = posts.find(post => post.id === id);
-    if (!post) {
-        res.status(404);
-        return res.json({
-            error: "Not Found",
-            message: "Post non trovato"
-        });
-    };
     validator(req, res);
-    const { title, slug, content, image, tags } = req.body;
-    post.title = title;
-    post.content = content;
-    post.slug = slug ?? post.slug;
-    post.image = image ?? post.image;
-    post.tags = tags ?? post.tags;
 
-    res.json(post);
+    const { title, slug, content, image, tags } = req.body;
+    req.post.title = title;
+    req.post.content = content;
+    req.post.slug = slug ?? req.post.slug;
+    req.post.image = image ?? req.post.image;
+    req.post.tags = tags ?? req.post.tags;
+
+    res.json(req.post);
 };
 
 function modify(req, res) {
-    const id = parseInt(req.params.id);
-    const post = posts.find(post => post.id === id);
-    if (!post) {
-        res.status(404);
-        return res.json({
-            error: "Not Found",
-            message: "Post non trovato"
-        });
-    };
     validator(req, res);
     const { title, slug, content, image, tags } = req.body;
-    post.title = title ?? post.title;
-    post.slug = slug ?? post.slug;
-    post.content = content ?? post.content;
-    post.image = image ?? post.image;
-    post.tags = tags ?? post.tags;
+    req.post.title = title ?? post.title;
+    req.post.slug = slug ?? post.slug;
+    req.post.content = content ?? post.content;
+    req.post.image = image ?? post.image;
+    req.post.tags = tags ?? post.tags;
 
-    res.json(post);
+    res.json(req.post);
 }
 
 function destroy(req, res) {
-    const id = parseInt(req.params.id);
-    let post = posts.find(post => post.id === id);
-    if (!post) {
-        res.status(404);
-        return res.json({
-            error: "Not Found",
-            message: "Pizza non trovata"
-        });
-
-    }
-    posts.splice(posts.indexOf(post), 1);
+    const index = posts.indexOf(req.post);
+    posts.splice(index, 1);
     res.sendStatus(204)
 }
 
