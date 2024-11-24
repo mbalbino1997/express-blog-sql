@@ -26,13 +26,6 @@ function show(req, res) {
 function store(req, res) {
     lastIndex++
     const { title, slug, content, image, tags } = req.body;
-    if (!title || !content || !isNaN(title) || !isNaN(content)) {
-        res.status(400);
-        return res.json({
-            error: "invalid or missing data",
-            message: "Dati incompleti"
-        });
-    }
     const newPost = {
         id: lastIndex,
         title,
@@ -56,14 +49,8 @@ function update(req, res) {
             message: "Post non trovato"
         });
     };
+    validator(req, res);
     const { title, slug, content, image, tags } = req.body;
-    if (!title || !content || !isNaN(title) || !isNaN(content)) {
-        res.status(400);
-        return res.json({
-            error: "invalid or missing data",
-            message: "Dati incompleti"
-        });
-    }
     post.title = title;
     post.content = content;
     post.slug = slug ?? post.slug;
@@ -83,6 +70,7 @@ function modify(req, res) {
             message: "Post non trovato"
         });
     };
+    validator(req, res);
     const { title, slug, content, image, tags } = req.body;
     post.title = title ?? post.title;
     post.slug = slug ?? post.slug;
@@ -109,3 +97,14 @@ function destroy(req, res) {
 }
 
 module.exports = { index, show, store, update, modify, destroy };
+
+function validator(req, res) {
+    const { title, slug, content, image, tags } = req.body;
+    if (!title || !content || !isNaN(title) || !isNaN(content)) {
+        res.status(400);
+        return res.json({
+            error: "invalid or missing data",
+            message: "Dati incompleti"
+        });
+    }
+}
