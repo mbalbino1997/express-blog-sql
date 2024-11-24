@@ -26,6 +26,13 @@ function show(req, res) {
 function store(req, res) {
     lastIndex++
     const { title, slug, content, image, tags } = req.body;
+    if (!title || !content || !isNaN(title) || !isNaN(content)) {
+        res.status(400);
+        return res.json({
+            error: "invalid or missing data",
+            message: "Dati incompleti"
+        });
+    }
     const newPost = {
         id: lastIndex,
         title,
