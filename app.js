@@ -1,10 +1,16 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const corsOptions = {
+    origin: "http://localhost:5173",
+};
 const posts = require("./data/posts.js");
 const postsRouter = require("./routers/posts.js");
 const errorsHandler = require("./middleware/errorsHandler.js");
-const notFound = require("./middleware/notFound.js")
+const notFound = require("./middleware/notFound.js");
+const cors = require("cors");
+
+app.use(cors(corsOptions))
 app.use(express.static("public/imgs"));
 app.use(express.json());
 app.use("/posts", postsRouter);
