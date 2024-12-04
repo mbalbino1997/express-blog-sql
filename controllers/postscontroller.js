@@ -55,6 +55,7 @@ function modify(req, res) {
 function destroy(req, res) {
     const index = posts.indexOf(req.post);
     posts.splice(index, 1);
+    console.log(`Post ${req.post.id} eliminato`)
     res.sendStatus(204)
 }
 
