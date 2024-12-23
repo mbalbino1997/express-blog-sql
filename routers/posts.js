@@ -4,7 +4,7 @@ const postsController = require("../controllers/postscontroller.js");
 const postNotFound = require("../middleware/postNotFound.js");
 const validator = require("../middleware/validator.js");
 
-router.param("id", postNotFound);
+// router.param("id", postNotFound);
 
 router.get("/", postsController.index);
 

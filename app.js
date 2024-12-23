@@ -10,7 +10,7 @@ const postsRouter = require("./routers/posts.js");
 const errorsHandler = require("./middleware/errorsHandler.js");
 const notFound = require("./middleware/notFound.js");
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.static("public/imgs"));
 app.use(express.json());
 app.use((req, res, next) => {
